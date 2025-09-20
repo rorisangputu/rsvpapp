@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using rsvp.data.Data;
 using rsvp.data.Interfaces;
 using rsvp.data.Models;
 using rsvp.data.Queries;
@@ -10,6 +11,12 @@ namespace rsvp.data.Repositories
 {
     public class EventRepository : IEventRepository
     {
+        private readonly ApplicationDbContext _context;
+        public EventRepository(ApplicationDbContext dbContext)
+        {
+            _context = dbContext;
+        }
+
         public Task<Event> CreateEventAsync(Event eventModel)
         {
             throw new NotImplementedException();
@@ -36,6 +43,11 @@ namespace rsvp.data.Repositories
         }
 
         public Task<Event?> GetEventByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Event>> GetUserEvents(User user)
         {
             throw new NotImplementedException();
         }
