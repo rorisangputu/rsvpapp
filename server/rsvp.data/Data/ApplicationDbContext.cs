@@ -85,6 +85,21 @@ namespace rsvp.data.Data
 
             };
             builder.Entity<IdentityRole>().HasData(roles);
+
+            builder.Entity<EventCategory>().HasData(
+                new EventCategory { Id = 1, Name = "Birthday" },
+                new EventCategory { Id = 2, Name = "Wedding" },
+                new EventCategory { Id = 3, Name = "Concert" },
+                new EventCategory { Id = 4, Name = "Conference" },
+                new EventCategory { Id = 5, Name = "Meetup" },
+                new EventCategory { Id = 6, Name = "Party" },
+                new EventCategory { Id = 7, Name = "Sports" },
+                new EventCategory { Id = 8, Name = "Charity" },
+                new EventCategory { Id = 9, Name = "Festival" },
+                new EventCategory { Id = 10, Name = "Workshop" },
+                new EventCategory { Id = 11, Name = "Networking" },
+                new EventCategory { Id = 12, Name = "Other" }
+            );
         }
     }
 }

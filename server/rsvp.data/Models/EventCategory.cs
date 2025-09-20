@@ -9,7 +9,6 @@ namespace rsvp.data.Models
     {
         public int Id { get; set; }
         public string? Name { get; set; }               // e.g., Party, Meeting
-        public string? Description { get; set; }        // Optional
 
         // Relationships
         public ICollection<Event> Events { get; set; } = new List<Event>();
