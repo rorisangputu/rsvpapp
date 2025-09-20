@@ -36,7 +36,8 @@ namespace rsvp.api.Controllers
                 var appUser = new User
                 {
                     UserName = registerDto.Username,
-                    Email = registerDto.Email
+                    Email = registerDto.Email,
+                    CreatedAt = DateTime.UtcNow
                 };
 
                 var createdUser = await _userManager.CreateAsync(appUser, registerDto.Password);
