@@ -1,0 +1,46 @@
+## Ignore Visual Studio temporary files, build results, and user-specific files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build results
+bin/
+obj/
+
+## Rider files
+.idea/
+
+## ASP.NET Core publish output
+wwwroot/
+*.publish/
+
+## NuGet
+*.nupkg
+packages/
+*.snupkg
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Logs
+*.log
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# User secrets (if used)
+secrets.json
+*.pfx
+*.key
+*.pem
+
+# Environment files
+.env
+.env.*
+
+
