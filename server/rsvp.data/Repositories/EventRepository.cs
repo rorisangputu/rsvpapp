@@ -18,9 +18,11 @@ namespace rsvp.data.Repositories
             _context = dbContext;
         }
 
-        public Task<Event> CreateEventAsync(Event eventModel)
+        public async Task<Event> CreateEventAsync(Event eventModel)
         {
-            throw new NotImplementedException();
+            await _context.Events.AddAsync(eventModel);
+            await _context.SaveChangesAsync();
+            return eventModel;
         }
 
         public Task<bool> DeleteAsync(int id)
@@ -71,9 +73,9 @@ namespace rsvp.data.Repositories
                 .ToListAsync();
         }
 
-        public Task<Event?> GetEventByIdAsync(int id)
+        public async Task<Event?> GetEventByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Events.Include(r => r.RSVPs).FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public Task<List<Event>> GetUserEvents(User user)
