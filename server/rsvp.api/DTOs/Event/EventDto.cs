@@ -16,8 +16,12 @@ namespace rsvp.api.DTOs.Event
         public bool IsPrivate { get; set; }
         public DateTime CreatedAt { get; set; }
         // Optional info about category
-        public int? EventCategoryId { get; set; } 
-        public string? CreatedByUserName { get; set; }
+        public int? EventCategoryId { get; set; }
+        public string? EventCategoryName { get; set; }  // <-- new
+
+        // Optional info about creator
+        public string? CreatedByUserId { get; set; }
+        public string? CreatedByUserName { get; set; }  // <-- new
         public List<RsvpDto> Rsvps { get; set; } = new List<RsvpDto>();
     }
 

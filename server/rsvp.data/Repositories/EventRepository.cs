@@ -43,7 +43,10 @@ namespace rsvp.data.Repositories
         //Get All Events and Query filtering
         public async Task<List<Event>> GetAllEventsAsync(EventQuery query)
         {
-            var events = _context.Events.AsQueryable();
+            var events = _context.Events
+                .Include(e => e.CreatedByUser)
+                .Include(c => c.EventCategory)
+                .AsQueryable();
 
             if (query.CategoryId.HasValue)
                 events = events.Where(e => e.EventCategoryId == query.CategoryId.Value);

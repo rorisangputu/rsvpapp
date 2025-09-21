@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using rsvp.api.DTOs.Event;
+using rsvp.api.Extensions;
 using rsvp.api.Mappers;
 using rsvp.data.Interfaces;
+using rsvp.data.Models;
 using rsvp.data.Queries;
 
 namespace rsvp.api.Controllers
@@ -17,10 +20,12 @@ namespace rsvp.api.Controllers
     public class EventController : ControllerBase
     {
         private readonly IEventRepository _eventRepo;
+        private readonly UserManager<User> _userManager;
 
-        public EventController(IEventRepository eventRepo)
+        public EventController(IEventRepository eventRepo, UserManager<User> userManager)
         {
             _eventRepo = eventRepo;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -64,7 +69,13 @@ namespace rsvp.api.Controllers
                 return BadRequest(ModelState);
             }
 
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+
             var eventModel = eventDto.ToEventFromCreateDto();
+            eventModel.CreatedByUserId = appUser.Id;
+            eventModel.CreatedAt = DateTime.UtcNow;
+
             await _eventRepo.CreateEventAsync(eventModel);
             return CreatedAtAction(nameof(GetById), new { id = eventModel.Id }, eventModel.ToEventDto());
         }

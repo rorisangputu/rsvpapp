@@ -7,7 +7,9 @@ using Newtonsoft.Json;
 using rsvp.api.Interfaces;
 using rsvp.api.Services;
 using rsvp.data.Data;
+using rsvp.data.Interfaces;
 using rsvp.data.Models;
+using rsvp.data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -98,6 +100,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IEventRepository, EventRepository>();
 
 var app = builder.Build();
 

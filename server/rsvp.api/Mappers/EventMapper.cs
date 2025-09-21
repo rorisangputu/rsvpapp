@@ -21,8 +21,10 @@ namespace rsvp.api.Mappers
                 IsPrivate = eventModel.IsPrivate,
                 CreatedAt = eventModel.CreatedAt,
                 EventCategoryId = eventModel.EventCategoryId,
-                CreatedByUserName = eventModel.CreatedByUser.UserName,
-                Rsvps = eventModel.RSVPs.Select(r => r.ToRsvpDto()).ToList()
+                EventCategoryName = eventModel.EventCategory?.Name,       // safe
+                CreatedByUserId = eventModel.CreatedByUserId,
+                CreatedByUserName = eventModel.CreatedByUser?.UserName,   // safe
+                Rsvps = eventModel.RSVPs?.Select(r => r.ToRsvpDto()).ToList()
             };
         }
 
@@ -35,9 +37,8 @@ namespace rsvp.api.Mappers
                 Location = eventDto.Location,
                 Date = eventDto.Date,
                 IsPrivate = eventDto.IsPrivate,
-                CreatedAt = eventDto.CreatedAt,
                 EventCategoryId = eventDto.EventCategoryId,
-                CreatedByUserId = eventDto.CreatedByUserId,
+
             };
         }
     }

@@ -27,11 +27,8 @@ namespace rsvp.api.DTOs.Event
         public bool IsPrivate { get; set; }
 
         [Required]
-        public DateTime CreatedAt { get; set; }
-        [Required]
         public int EventCategoryId { get; set; }
-        [Required]
-        public string CreatedByUserId { get; set; }
+        
 
     }
 }
