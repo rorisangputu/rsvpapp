@@ -86,9 +86,20 @@ namespace rsvp.data.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Event?> UpdateEventAsync(Event ev)
+        public async Task<Event?> UpdateEventAsync(int id, Event ev)
         {
-            throw new NotImplementedException();
+            var existingEvent = await _context.Events.FindAsync(id);
+            if (existingEvent == null) return null;
+
+            existingEvent.Title = ev.Title;
+            existingEvent.Description = ev.Description;
+            existingEvent.IsPrivate = ev.IsPrivate;
+            existingEvent.Date = ev.Date;
+            existingEvent.Location = ev.Location;
+            existingEvent.EventCategoryId = ev.EventCategoryId;
+
+            await _context.SaveChangesAsync();
+            return existingEvent;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace rsvp.data.Interfaces
         Task<List<Event>> GetAllEventsAsync(EventQuery query);
         Task<Event?> GetEventByIdAsync(int id);
         Task<Event> CreateEventAsync(Event eventModel);
-        Task<Event?> UpdateEventAsync(Event ev);
+        Task<Event?> UpdateEventAsync(int id, Event ev);
         Task<bool> DeleteAsync(int id);
         Task<bool> EventExists(int id);
         Task<bool> EventPrivate(int id);
