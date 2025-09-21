@@ -79,5 +79,14 @@ namespace rsvp.api.Controllers
             await _eventRepo.CreateEventAsync(eventModel);
             return CreatedAtAction(nameof(GetById), new { id = eventModel.Id }, eventModel.ToEventDto());
         }
+
+        [HttpPut]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateEventRequestDto updateDto)
+        {
+            var ev = await _eventRepo.UpdateEventAsync(id, updateDto.ToEventFromUpdate());
+            if (ev == null) return NotFound("Event Not Found!");
+            return Ok(ev.ToEventDto());
+        }
     }
 }
