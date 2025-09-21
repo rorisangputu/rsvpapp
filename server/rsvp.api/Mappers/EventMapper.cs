@@ -41,5 +41,18 @@ namespace rsvp.api.Mappers
 
             };
         }
+
+        public static Event ToEventFromUpdate(this UpdateEventRequestDto updateDto)
+        {
+            return new Event
+            {
+                Title = updateDto.Title,
+                Description = updateDto.Description,
+                Location = updateDto.Location,
+                Date = updateDto.Date,
+                IsPrivate = updateDto.IsPrivate,
+                EventCategoryId = updateDto.EventCategoryId,
+            };
+        }
     }
 }
