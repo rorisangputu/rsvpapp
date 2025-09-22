@@ -82,6 +82,7 @@ namespace rsvp.api.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateEventRequestDto updateDto)
         {
             var username = User.GetUsername();
@@ -99,6 +100,7 @@ namespace rsvp.api.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);

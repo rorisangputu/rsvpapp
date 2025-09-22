@@ -89,9 +89,14 @@ namespace rsvp.data.Repositories
             return await _context.Events.Include(r => r.RSVPs).FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public Task<List<Event>> GetUserEvents(User user)
+        public IAsyncEnumerable<Event> GetUserEvents(string userId)
         {
-            throw new NotImplementedException();
+            var events = _context.Events.Where(u => u.CreatedByUserId == userId)
+                .Include(e => e.CreatedByUser)
+                .Include(c => c.EventCategory);
+
+            return events.AsAsyncEnumerable();
+
         }
 
         public async Task<Event?> UpdateEventAsync(int id, Event ev, User user)

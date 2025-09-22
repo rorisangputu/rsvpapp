@@ -9,7 +9,7 @@ namespace rsvp.data.Interfaces
 {
     public interface IEventRepository
     {
-        Task<List<Event>> GetUserEvents(User user);
+        IAsyncEnumerable<Event> GetUserEvents(string userId);
         Task<List<Event>> GetAllEventsAsync(EventQuery query);
         Task<Event?> GetEventByIdAsync(int id);
         Task<Event> CreateEventAsync(Event eventModel);
