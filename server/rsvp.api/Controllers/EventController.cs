@@ -84,9 +84,37 @@ namespace rsvp.api.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateEventRequestDto updateDto)
         {
-            var ev = await _eventRepo.UpdateEventAsync(id, updateDto.ToEventFromUpdate());
+            var username = User.GetUsername();
+
+            if (username == null) return Unauthorized();
+
+            var appUser = await _userManager.FindByNameAsync(username);
+
+            if (appUser == null) return Unauthorized();
+
+            var ev = await _eventRepo.UpdateEventAsync(id, updateDto.ToEventFromUpdate(), appUser);
             if (ev == null) return NotFound("Event Not Found!");
-            return Ok(ev.ToEventDto());
+            return Accepted(ev.ToEventDto());
+        }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var username = User.GetUsername();
+
+            if (username == null) return Unauthorized();
+
+            var appUser = await _userManager.FindByNameAsync(username);
+
+            if (appUser == null) return Unauthorized();
+
+            var eventModel = await _eventRepo.DeleteAsync(id, appUser);
+            if (eventModel == false) return NotFound("Event does not exist");
+
+            return Ok(eventModel);
         }
     }
 }

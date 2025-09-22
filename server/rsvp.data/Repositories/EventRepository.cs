@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using rsvp.data.Data;
 using rsvp.data.Interfaces;
@@ -25,9 +26,16 @@ namespace rsvp.data.Repositories
             return eventModel;
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id, User user)
         {
-            throw new NotImplementedException();
+            var eventModel = await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
+            if (eventModel == null) return false;
+
+            if (eventModel.CreatedByUserId != user.Id) throw new UnauthorizedAccessException("Action Not Authorized for User");
+
+            _context.Events.Remove(eventModel);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public Task<bool> EventExists(int id)
@@ -86,10 +94,12 @@ namespace rsvp.data.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<Event?> UpdateEventAsync(int id, Event ev)
+        public async Task<Event?> UpdateEventAsync(int id, Event ev, User user)
         {
             var existingEvent = await _context.Events.FindAsync(id);
             if (existingEvent == null) return null;
+
+            if (existingEvent.CreatedByUserId != user.Id) throw new UnauthorizedAccessException("Action Not Authorized for User.");
 
             existingEvent.Title = ev.Title;
             existingEvent.Description = ev.Description;
@@ -97,6 +107,7 @@ namespace rsvp.data.Repositories
             existingEvent.Date = ev.Date;
             existingEvent.Location = ev.Location;
             existingEvent.EventCategoryId = ev.EventCategoryId;
+
 
             await _context.SaveChangesAsync();
             return existingEvent;
