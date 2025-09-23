@@ -20,5 +20,14 @@ namespace rsvp.api.Mappers
                 CreatedByUserName = rsvpModel.User.UserName,
             };
         }
+
+        public static Rsvp ToRsvpFromCreateRsvpDto(this CreateRsvpRequestDto rsvpDto)
+        {
+            return new Rsvp
+            {
+                IsAttending = rsvpDto.IsAttending,
+                Comment = rsvpDto?.Comment,
+            };
+        }
     }
 }
