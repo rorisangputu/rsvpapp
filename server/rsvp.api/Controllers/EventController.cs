@@ -15,7 +15,7 @@ using rsvp.data.Queries;
 
 namespace rsvp.api.Controllers
 {
-    [Route("api/event")]
+    [Route("api/events")]
     [ApiController]
     public class EventController : ControllerBase
     {
@@ -77,7 +77,7 @@ namespace rsvp.api.Controllers
 
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateEventRequestDto eventDto)
         {
@@ -98,7 +98,7 @@ namespace rsvp.api.Controllers
         }
 
         [HttpPut]
-        [Route("{id:int}")]
+        [Route("update/{id:int}")]
         [Authorize]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateEventRequestDto updateDto)
         {
@@ -116,7 +116,7 @@ namespace rsvp.api.Controllers
         }
 
         [HttpDelete]
-        [Route("{id:int}")]
+        [Route("delete/{id:int}")]
         [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
