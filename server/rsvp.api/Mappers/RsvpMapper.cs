@@ -17,7 +17,7 @@ namespace rsvp.api.Mappers
                 IsAttending = rsvpModel.IsAttending,
                 Comment = rsvpModel.Comment,
                 EventId = rsvpModel.EventId,
-                CreatedByUserName = rsvpModel.User.UserName,
+                CreatedByUserName = rsvpModel.User?.UserName,
             };
         }
 
