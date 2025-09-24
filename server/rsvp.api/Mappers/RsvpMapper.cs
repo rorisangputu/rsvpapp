@@ -21,7 +21,7 @@ namespace rsvp.api.Mappers
             };
         }
 
-        public static Rsvp ToRsvpFromCreateRsvpDto(this CreateRsvpRequestDto rsvpDto)
+        public static Rsvp ToRsvpFromCreateRsvpDto(this CreateRsvpRequestDto rsvpDto, int eventId)
         {
             return new Rsvp
             {
