@@ -101,6 +101,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<IRsvpRepository, RsvpRepository>();
 
 var app = builder.Build();
 

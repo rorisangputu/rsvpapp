@@ -27,6 +27,7 @@ namespace rsvp.api.Mappers
             {
                 IsAttending = rsvpDto.IsAttending,
                 Comment = rsvpDto?.Comment,
+                EventId = eventId
             };
         }
     }
