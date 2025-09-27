@@ -53,6 +53,8 @@ namespace rsvp.api.Controllers
                 yield break;
             }
 
+            
+
             await foreach (var ev in _eventRepo.GetUserEvents(user.Id))
             {
                 yield return ev;

@@ -91,9 +91,7 @@ namespace rsvp.data.Repositories
 
         public IAsyncEnumerable<Event> GetUserEvents(string userId)
         {
-            var events = _context.Events.Where(u => u.CreatedByUserId == userId && u.IsPrivate == false)
-                .Include(e => e.CreatedByUser)
-                .Include(c => c.EventCategory);
+            var events = _context.Events.Where(u => u.CreatedByUserId == userId && u.IsPrivate == false);
 
             return events.AsAsyncEnumerable();
 
