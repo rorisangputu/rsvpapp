@@ -22,7 +22,7 @@ The application is built with **C# ASP.NET Web API** for the backend and **React
 
 - **Frontend:** React, JavaScript, HTML, CSS  
 - **Backend:** C# ASP.NET Core Web API  
-- **Database:** SQL Server / PostgreSQL (via Entity Framework or chosen ORM)  
+- **Database:** MySQL (via Entity Framework or chosen ORM)  
 - **Authentication & Security:** JWT-based authentication for secure user access  
 
 ---
