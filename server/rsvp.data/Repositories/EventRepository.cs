@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using rsvp.data.Data;
@@ -89,11 +90,11 @@ namespace rsvp.data.Repositories
             return await _context.Events.Include(r => r.RSVPs).FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public IAsyncEnumerable<Event> GetUserEvents(string userId)
+        public async Task<List<Event>> GetUserEvents(string userId)
         {
-            var events = _context.Events.Where(u => u.CreatedByUserId == userId && u.IsPrivate == false);
-
-            return events.AsAsyncEnumerable();
+            return await _context.Events
+            .Where(u => u.CreatedByUserId == userId && u.IsPrivate == false)
+            .ToListAsync();
 
         }
 
