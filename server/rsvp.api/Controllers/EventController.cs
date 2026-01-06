@@ -44,21 +44,19 @@ namespace rsvp.api.Controllers
 
         //Get another users events
         [HttpGet("{userId}")]
-        public async IAsyncEnumerable<Event> GetUserEvents([FromRoute] string userId)
+        public async Task<IActionResult> GetUserEvents([FromRoute] string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                Response.StatusCode = 404;
-                yield break;
+                return BadRequest("User doesn't exist.");
             }
 
-            
+            var ev = await _eventRepo.GetUserEvents(user.Id);
+            var eventDto = ev.Select(ev => ev.ToEventDto()).ToList();
 
-            await foreach (var ev in _eventRepo.GetUserEvents(user.Id))
-            {
-                yield return ev;
-            }
+            return Ok(eventDto);
+
         }
 
         [HttpGet("{id:int}")]
